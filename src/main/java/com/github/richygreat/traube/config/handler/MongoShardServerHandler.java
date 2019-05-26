@@ -9,12 +9,12 @@ import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
-public class MongoConfigServerHandler extends MongoReplicaHandler {
+public class MongoShardServerHandler extends MongoReplicaHandler {
 	private final EC2InfoService ec2InfoService;
 
 	@Override
 	public ApplicationType getType() {
-		return ApplicationType.mongoconfig;
+		return ApplicationType.mongoshard;
 	}
 
 	@Override
