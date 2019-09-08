@@ -21,37 +21,37 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Component
 public class ConfigApplicationRunner implements ApplicationRunner {
-	private final EnumMap<ApplicationType, IHandler> handlerMap;
+    private final EnumMap<ApplicationType, IHandler> handlerMap;
 
-	@Autowired
-	public ConfigApplicationRunner(List<IHandler> handlers) {
-		handlerMap = handlers.stream().collect(Collectors.toMap(IHandler::getType, Function.identity(), (u, v) -> {
-			throw new IllegalStateException(String.format("Duplicate key %s", u));
-		}, () -> new EnumMap<>(ApplicationType.class)));
-	}
+    @Autowired
+    public ConfigApplicationRunner(List<IHandler> handlers) {
+	handlerMap = handlers.stream().collect(Collectors.toMap(IHandler::getType, Function.identity(), (u, v) -> {
+	    throw new IllegalStateException(String.format("Duplicate key %s", u));
+	}, () -> new EnumMap<>(ApplicationType.class)));
+    }
 
-	@Override
-	public void run(ApplicationArguments args) throws Exception {
-		log.info("Entering run getNonOptionArgs: {} getOptionNames: {}", args.getNonOptionArgs(),
-				args.getOptionNames());
-		if (CollectionUtils.isEmpty(args.getNonOptionArgs()) || args.getNonOptionArgs().size() > 1
-				|| StringUtils.isEmpty(args.getNonOptionArgs().get(0))) {
-			throw new RuntimeException("Invalid arguments");
-		}
-		ApplicationType appType = null;
-		try {
-			String app = args.getNonOptionArgs().get(0);
-			appType = ApplicationType.valueOf(app);
-		} catch (IllegalArgumentException e) {
-		}
-		if (appType == null) {
-			throw new RuntimeException("Invalid arguments");
-		}
-		log.info("appType: {}", appType);
-		Map<String, List<String>> paramMap = args.getOptionNames().stream()
-				.collect(Collectors.toMap(Function.identity(), k -> args.getOptionValues(k)));
-		IParams params = appType.getBuilder().build(paramMap);
-		log.info("params: {}", params);
-		handlerMap.get(appType).handle(params);
+    @Override
+    public void run(ApplicationArguments args) throws Exception {
+	log.info("Entering run getNonOptionArgs: {} getOptionNames: {}", args.getNonOptionArgs(),
+		args.getOptionNames());
+	if (CollectionUtils.isEmpty(args.getNonOptionArgs()) || args.getNonOptionArgs().size() > 1
+		|| StringUtils.isEmpty(args.getNonOptionArgs().get(0))) {
+	    throw new RuntimeException("Invalid arguments");
 	}
+	ApplicationType appType = null;
+	try {
+	    String app = args.getNonOptionArgs().get(0);
+	    appType = ApplicationType.valueOf(app);
+	} catch (IllegalArgumentException e) {
+	}
+	if (appType == null) {
+	    throw new RuntimeException("Invalid arguments");
+	}
+	log.info("appType: {}", appType);
+	Map<String, List<String>> paramMap = args.getOptionNames().stream()
+		.collect(Collectors.toMap(Function.identity(), k -> args.getOptionValues(k)));
+	IParams params = appType.getBuilder().build(paramMap);
+	log.info("params: {}", params);
+	handlerMap.get(appType).handle(params);
+    }
 }

@@ -11,13 +11,9 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.1.5.RELEASE</version>
+		<version>2.1.8.RELEASE</version>
 		<relativePath />
 	</parent>
-
-	<properties>
-		<aws.sdk.version>1.11.560</aws.sdk.version>
-	</properties>
 
 	<dependencies>
 		<dependency>
@@ -27,16 +23,6 @@
 		<dependency>
 			<groupId>org.mongodb</groupId>
 			<artifactId>mongodb-driver</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.amazonaws</groupId>
-			<artifactId>aws-java-sdk-autoscaling</artifactId>
-			<version>${aws.sdk.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.amazonaws</groupId>
-			<artifactId>aws-java-sdk-ec2</artifactId>
-			<version>${aws.sdk.version}</version>
 		</dependency>
 
 		<dependency>

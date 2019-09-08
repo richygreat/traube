@@ -4,6 +4,6 @@ import lombok.Value;
 
 @Value
 public class MongoServer {
-	private String hostName; // with port
-	private int index;
+    private String hostName; // with port
+    private int index;
 }

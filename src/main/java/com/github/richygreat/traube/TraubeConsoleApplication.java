@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 
 @SpringBootApplication(exclude = MongoAutoConfiguration.class)
 public class TraubeConsoleApplication {
-	public static void main(String[] args) {
-		SpringApplication.run(TraubeConsoleApplication.class, args);
-	}
+    public static void main(String[] args) {
+	SpringApplication.run(TraubeConsoleApplication.class, args);
+    }
 }

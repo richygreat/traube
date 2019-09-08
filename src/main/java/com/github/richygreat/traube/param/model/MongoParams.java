@@ -5,8 +5,8 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class MongoParams extends AwsParams {
-	private String replicaName;
-	private String username;
-	private String password;
+public class MongoParams implements IParams {
+    private String privateIp;
+    private String username;
+    private String password;
 }
